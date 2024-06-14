@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>查询结果</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>查询结果</h1>
+    {% if results %}
+    <table>
+        <tr>
+            <th>专业</th>
+            <th>学校</th>
+            <th>录取名额</th>
+            <th>成绩</th>
+            <th>排名</th>
+        </tr>
+        {% for row in results %}
+        <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+            <td>{{ row[3] }}</td>
+            <td>{{ row[4] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class="pagination">
+        {% if page > 1 %}
+        <a href="{{ url_for('results', major=request.args.get('major'), school=request.args.get('school'), min_score=request.args.get('min_score'), max_score=request.args.get('max_score'), min_rank=request.args.get('min_rank'), max_rank=request.args.get('max_rank'), page=page-1) }}">上一页</a>
+        {% endif %}
+
+        <span>第 {{ page }} 页，共 {{ total_pages }} 页</span>
+
+        {% if page < total_pages %}
+        <a href="{{ url_for('results', major=request.args.get('major'), school=request.args.get('school'), min_score=request.args.get('min_score'), max_score=request.args.get('max_score'), min_rank=request.args.get('min_rank'), max_rank=request.args.get('max_rank'), page=page+1) }}">下一页</a>
+        {% endif %}
+    </div>
+
+    {% else %}
+    <p>没有符合条件的结果。</p>
+    {% endif %}
+    <a href="{{ url_for('index') }}">返回</a>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高考录取查询</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>高考录取查询</h1>
+    <form method="post">
+        <div>
+            <label for="major">专业:</label>
+            <input type="text" id="major" name="major">
+        </div>
+        <div>
+            <label for="school">学校:</label>
+            <input type="text" id="school" name="school">
+        </div>
+        <div>
+            <label for="min_score">最低成绩:</label>
+            <input type="number" id="min_score" name="min_score">
+        </div>
+        <div>
+            <label for="max_score">最高成绩:</label>
+            <input type="number" id="max_score" name="max_score">
+        </div>
+        <div>
+            <label for="min_rank">最低排名:</label>
+            <input type="number" id="min_rank" name="min_rank">
+        </div>
+        <div>
+            <label for="max_rank">最高排名:</label>
+            <input type="number" id="max_rank" name="max_rank">
+        </div>
+        <button type="submit">查询</button>
+    </form>
+    {% if results %}
+    <h2>查询结果</h2>
+    <table>
+        <tr>
+            <th>专业</th>
+            <th>学校</th>
+            <th>录取名额</th>
+            <th>成绩</th>
+            <th>排名</th>
+        </tr>
+        {% for row in results %}
+        <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+            <td>{{ row[3] }}</td>
+            <td>{{ row[4] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</body>
+</html>
